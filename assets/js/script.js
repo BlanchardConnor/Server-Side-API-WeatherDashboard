@@ -4,8 +4,6 @@ console.log(recentSearches);
 var searchHistory = document.getElementById('recently_viewed');
 getWeather('Chicago');
 
-// var apiKey = '6362005dd0658b2343931c05bca41801';
-
 function getWeather(city) {
     var url = 'https://api.openweathermap.org/data/2.5/forecast?q=' +
         city +
