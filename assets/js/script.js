@@ -4,9 +4,11 @@ console.log(recentSearches);
 var searchHistory = document.getElementById('recently_viewed');
 getWeather('Chicago');
 
+// var apiKey = '6362005dd0658b2343931c05bca41801';
+
 function getWeather(city) {
-    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat?q=';
-    city +
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?q=' +
+        city +
         '&appid=6362005dd0658b2343931c05bca41801&units=imperial';
 
     fetch(url)
@@ -50,6 +52,41 @@ function setCurrentWeather(weather) {
     currentWind.textContent = 'Wind: ' + weather.wind.speed + ' MPH';
     var currentHumidity = document.getElementById('current_humidity');
     currentHumidity.textContent = 'Humidity: ' + weather.main.humidity + ' %';
+}
+
+function setForecast(forecast) {
+    for (var i = 0; i < forecast.length; i += 8) {
+        console.log(forecast[i]);
+        setForecastDay(forecast[i], i / 8 + 1);
+    }
+}
+
+function setForecastDay(weather, dayNumber) {
+    var iconParagraph = document.createElement("p");
+    var iconParagraphId = weather.weather[0].icon;
+    var iconLink = 'https://openweathermap.org/img/wn/' + iconParagraphId + '.png';
+    var iconHTML = '<img src ="' + iconLink + '">';
+    var forecastParagraph = document.createElement('p');
+    var forecastDate = weather.dt;
+    var convertTimeMilli = forecastDate * 1000;
+    var dateTime = new Date(convertTimeMilli);
+    var newDate = dateTime.toLocaleDateString('en-US', { dateStyle: 'short' });
+    var day = document.getElementById('day-' + dayNumber);
+    var dayList = [];
+
+    var titleParagraph = document.createElement('p');
+    titleParagraph.innerHTML = newDate + iconHTML;
+    dayList.push(titleParagraph);
+
+    var tempParagraph = document.createElement('p');
+    tempParagraph.textContent = 'Temp: ' + weather.main.temp + ' \xB0F';
+    dayList.push(tempParagraph);
+    day.replaceChildren(...dayList);
+
+    var windParagraph = document.createElement('p');
+    windParagraph.textContent = 'Wind: ' + weather.wind.speed + ' MPH';
+    dayList.push(windParagraph);
+    day.replaceChildren(...dayList);
 }
 
 var searchForm = document.getElementById('search_form');
