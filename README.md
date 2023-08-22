@@ -11,7 +11,7 @@ A weather dashboard using the [Open Weather API](https://openweathermap.org/fore
 
 ## Screenshot
 <p align = "center">
-<img src = './assets/icons/Screenshot 2023-08-21 183924.png'>
+<img src = './assets/icons/Screenshot 2023-08-21 192907.png'>
 </p>
 
 ## Live Link 
